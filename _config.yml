@@ -10,7 +10,9 @@ copyright                   : "2022"  # Copyright year to be placed in the foote
 logo                        : prog-ml.jpg
 execute:
   execute_notebooks: false
-  
+
+only_build_toc_files: true
+
 bibtex_bibfiles:
   - references.bib
   

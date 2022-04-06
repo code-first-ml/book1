@@ -1,0 +1,1741 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Out of matrix non-negative matrix factorisation &#8212; Prog-ML</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "prog-ml/prog-ml.github.io");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Out of Tensor factorisation" href="2017-04-20-parafac-out-tensor.html" />
+    <link rel="prev" title="HMM Simulation for Continuous HMM" href="../hmms/2013-07-01-hmm_continuous.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/prog-ml.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Prog-ML</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Prog-ML
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction/mle_coin.html">
+   MLE, MAP and Fully Bayesian (conjugate prior and MCMC) for coin toss
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction/variational.html">
+   Variational Inference from scratch in JAX
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Probability Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/sample-space.html">
+   Sample Space
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/random-variable.html">
+   Random Variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/pmf.html">
+   Probability Mass Function (PMF)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Continuous Probability Distributions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/univariate-normal.html">
+   Properties of RV
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/univariate-normal-expectations.html">
+   Derivations for moments of univariate normal distribution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/mvn-introduction.html">
+   Multivariate Normal Distribution: Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/mvn-marginal.html">
+   Multivariate Normal Distribution: Marginals
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-23-bayesian-ml.html">
+   Bayesian ML: Fundamentals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-04-14-bayesian-linear-regression.html">
+   Bayesian linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-29-bayesian-model-selection.html">
+   Bayesian model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-27-Marginal-Likelihood-2.html">
+   Marginal likelihood
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-31-derivation-of-marginal-likelihood.html">
+   Marginal likelihood for Bayesian linear regression
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sampling from Distributions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/rejection-sampling-lr.html">
+   Simple rejection sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/Metropolis-Hastings.html">
+   Metropolis Hastings
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2021-03-10-importance-sampling.html">
+   Importance sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2021-03-10-rejection-sampling.html">
+   Rejection sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2022-02-04-sampling-normal.html">
+   Sampling from univariate and multivariate normal distributions using Box-Muller transform
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2020-04-16-inverse-transform.html">
+   Sampling from common distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2014-05-01-gibbs-sampling.html">
+   Gibbs sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2014-07-01-mcmc_coins.html">
+   Coin tosses and MCMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Graphical Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../graphical_models/2022-02-15-draw-graphical-models.html">
+   Drawing graphical models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Mixture Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mixture_models/2022-02-14-GMM.html">
+   GMM learning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information Theory
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../information_theory/kl-divergence.html">
+   Understanding KL-Divergence
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Variational Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../variational_models/2022-02-12-variational-inference.html">
+   Variational Inference
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with PyMC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-11-blr-pymc.html">
+   Bayesian linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-12-logistic-bayesian.html">
+   Bayesian logistic regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-03-16-GP-PyMC3.html">
+   Gaussian process regression in PyMC
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-03-17-lls-gp-pymc3.html">
+   Local Lengthscale GP with PyMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Pyro
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2021-08-20-Bayesian.html">
+   Probabilistic Programming in Pyro
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2022_02_17_pyro_linreg.html">
+   Linear Regression using Pyro
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2022-02-20-condition-pyro.html">
+   Pyro Conditioning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with PyTorch
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-09-pytorch-learn-normal.html">
+   Maximum Likelihood Estimation (MLE) for parameters of univariate and multivariate normal distribution in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-11-pytorch-learn-normal-map.html">
+   Maximum A-Posteriori (MAP) for parameters of univariate and multivariate normal distribution in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-17-ppca.html">
+   Probabilstic PCA using PyTorch distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-14-logistic-regression.html">
+   Logistic Regression using PyTorch distributions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Tensorflow Probability
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-26-tfp-distributions.html">
+   Testing out some distributions in Tensorflow Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-07-coin-toss.html">
+   Coin Toss (MLE, MAP, Fully Bayesian) in TF Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-28-tfp-linear-regression.html">
+   Linear Regression in Tensorflow Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-lr.html">
+   Linear Regression in TF Probability using JointDistributionCoroutineAutoBatched
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-simple-dgm.html">
+   Simple Directed Graphical Models in TF Probability
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Julia
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_julia/2021-09-01-Hello-Julia-Language.html">
+   Linear Regression from scratch in Julia
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Gaussian Processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-03-26-gp.html">
+   Some experiments in Gaussian Processes Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-15-LLS-GP.html">
+   Local Lengthscale GP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-15-deep-gp-from-scratch.html">
+   Deep Kernel Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-16-ard-gp.html">
+   Automatic relevance determination (ARD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-16-GP-vs-DeepGP.html">
+   GP v/s Deep GP on 2d data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2022-02-23-gp_rff.html">
+   Gaussian Processes with Random Fourier Features
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-03-29-param-learning.html">
+   Learning Gaussian Process regression parameters using gradient descent
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-09-03-param-learning-sgd.html">
+   Learning Gaussian Process regression parameters using mini-batch stochastic gradient descent
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-06-26-gp-understand.html">
+   Understanding Kernels in Gaussian Processes Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/pyro-deep-gp.html">
+   Deep Kernel Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/pyro-binary-classification.html">
+   GP Classification
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Regression
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../linear_regression/2022_02_21_coordinate_descent_failure.html">
+   Coordinate descent failure example
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Generative Adversarial Networks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gans/2021-05-31-GAN.html">
+   A programming introduction to GANs
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Hidden Markov Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hmms/2013-06-01-hmm_simulate.html">
+   HMM Simulation for Unfair Casino Problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hmms/2013-07-01-hmm_continuous.html">
+   HMM Simulation for Continuous HMM
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tensor Factorization
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Out of matrix non-negative matrix factorisation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2017-04-20-parafac-out-tensor.html">
+   Out of Tensor factorisation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2017-08-13-mf-autograd-adagrad.html">
+   Adagrad based matrix factorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2017-04-21-constrained-nmf-cvx.html">
+   Constrained Non-negative matrix factorisation using CVXPY
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Neural Networks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-03-08-keras-neural-non-linear.html">
+   Some Neural Network Classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-02-28-xor-relu-vector.html">
+   Learning neural network for XOR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-03-02-linear-scratch.html">
+   Neural Networks from scratch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2018-01-13-denoising.html">
+   Signal denoising using RNNs in PyTorch
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Expectation Maximization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../em/2014-06-01-em.html">
+   Programatically understanding Expectation Maximization
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Recommender Systems
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../recommender_systems/2017-12-18-recommend-keras.html">
+   Recommender Systems in Keras
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../recommender_systems/2017-12-29-neural-collaborative-filtering.html">
+   Neural Networks for Collaborative Filtering
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Active Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2018-06-20-active-committee.html">
+   Active Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2022_01_24_Query_by_Committee.html">
+   Query by Committee
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.html">
+   Active Learning with Bayesian Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2022-03-06-maximal-expected-error-reduction.html">
+   Problem with Expected Model Change
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  JAX
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../jax/introduction-jax.html">
+   Using PRNG key
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml_softwares/2022-02-09-autograd-pytorch-jax.html">
+   Autograd in JAX and PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml_softwares/2017-08-12-linear-regression-adagrad-vs-gd.html">
+   Programatically understanding Adagrad
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Appendix 1 - Linear Algebra for ML
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-eigen.html">
+   Eigen values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-determinant.html">
+   Determinant
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-Positive-semi-definite.html">
+   Positive definiteness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2022-02-11-matrix.html">
+   Matrix as transformation and interpreting low rank matrix
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Appendix 2 - Stochastic processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.html">
+   Stochastic processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-17-Stationary-Time_Series.html">
+   Stationarity of time-series stochastic process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-23-Stationarity-stochastic-processes.html">
+   Stationarity of stochastic processes II
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references/references.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/notebooks/tensor_factorization/2017-04-19-nmf-out-matrix.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/tensor_factorization/2017-04-19-nmf-out-matrix.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/tensor_factorization/2017-04-19-nmf-out-matrix.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/tensor_factorization/2017-04-19-nmf-out-matrix.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/tensor_factorization/2017-04-19-nmf-out-matrix.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#standard-problem">
+   Standard Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#our-problem-out-of-matrix-factorisation">
+   Our Problem- Out of matrix factorisation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-example">
+   Code example
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-matrix-a">
+     Defining matrix A
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#masking-a-few-entries">
+     Masking a few entries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-matrices-w-and-h-learning-on-m-1-users-and-n-movies">
+     Defining matrices W and H (learning on M-1 users and N movies)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-the-cost-that-we-want-to-minimise">
+     Defining the cost that we want to minimise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alternating-nnls-procedure">
+     Alternating NNLS procedure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-home-factors-for-m-th-home">
+     Learning home factors for
+     <span class="math notranslate nohighlight">
+      \(M^{th}\)
+     </span>
+     home
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predicting-for-m-th-home">
+     Predicting for
+     <span class="math notranslate nohighlight">
+      \(M^{th}\)
+     </span>
+     home
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Out of matrix non-negative matrix factorisation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#standard-problem">
+   Standard Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#our-problem-out-of-matrix-factorisation">
+   Our Problem- Out of matrix factorisation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-example">
+   Code example
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-matrix-a">
+     Defining matrix A
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#masking-a-few-entries">
+     Masking a few entries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-matrices-w-and-h-learning-on-m-1-users-and-n-movies">
+     Defining matrices W and H (learning on M-1 users and N movies)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-the-cost-that-we-want-to-minimise">
+     Defining the cost that we want to minimise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alternating-nnls-procedure">
+     Alternating NNLS procedure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-home-factors-for-m-th-home">
+     Learning home factors for
+     <span class="math notranslate nohighlight">
+      \(M^{th}\)
+     </span>
+     home
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predicting-for-m-th-home">
+     Predicting for
+     <span class="math notranslate nohighlight">
+      \(M^{th}\)
+     </span>
+     home
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="out-of-matrix-non-negative-matrix-factorisation">
+<h1>Out of matrix non-negative matrix factorisation<a class="headerlink" href="#out-of-matrix-non-negative-matrix-factorisation" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>What if we to predict for entries not within the matrix?!</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>toc: true</p></li>
+<li><p>badges: true</p></li>
+<li><p>comments: true</p></li>
+<li><p>author: Nipun Batra</p></li>
+<li><p>categories: [ML]</p></li>
+</ul>
+<p>I have written a bunch of posts on this blog about non-negative matrix factorisation (NNMF). However, all of them involved the test user to be a part of the matrix that we factorise to learn the latent factors. Is that always the case? Read on to find more!</p>
+<div class="section" id="standard-problem">
+<h2>Standard Problem<a class="headerlink" href="#standard-problem" title="Permalink to this headline">¶</a></h2>
+<p>Our goal is given a matrix A, decompose it into two non-negative factors, as follows:</p>
+<p><span class="math notranslate nohighlight">\( A_{M \times N} \approx W_{M \times K} \times H_{K \times N} \)</span>, such that <span class="math notranslate nohighlight">\( W_{M \times K} \ge 0\)</span> and <span class="math notranslate nohighlight">\( H_{K \times N} \ge 0\)</span></p>
+<p><img alt="" src="https://nipunbatra.github.io/blog/images/o_matrix.png" /></p>
+</div>
+<div class="section" id="our-problem-out-of-matrix-factorisation">
+<h2>Our Problem- Out of matrix factorisation<a class="headerlink" href="#our-problem-out-of-matrix-factorisation" title="Permalink to this headline">¶</a></h2>
+<p>Imagine that we have trained the model for M-1 users on N movies. Now, the <span class="math notranslate nohighlight">\(M^{th}\)</span> user has rated some movies. Do we retrain the model from scratch to consider <span class="math notranslate nohighlight">\(M^{th}\)</span> user? This can be a very expensive operation!</p>
+<p><img alt="" src="https://nipunbatra.github.io/blog/images/o_matrix_estimation.png" /></p>
+<p>Instead, as shown in above figure, we will learn the user factor for the <span class="math notranslate nohighlight">\(M^{th}\)</span> user. We can do this the shared movie factor (H) has already been learnt.</p>
+<p>We can formulate as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+A[M,:] = W[M,:]H
+\]</div>
+<p>Taking transpose both sides</p>
+<div class="math notranslate nohighlight">
+\[
+A[M,:]^T = H^T W[M,:]^T
+\]</div>
+<p>However, <span class="math notranslate nohighlight">\(A[M,:]^T\)</span> will have missing entries. Thus, we can mask those entries from the calculation as shown below.</p>
+<p><img alt="" src="https://nipunbatra.github.io/blog/images/o_matrix_estimation_ls.png" /></p>
+<p>Thus, we can write</p>
+<div class="math notranslate nohighlight">
+\[
+W[M,:]^T = \mathrm{Least Squares} (H^T[Mask], A[M,:]^T[Mask])
+\]</div>
+<p>If instead we want the factors to be non-negative, we can use non-negative least squares instead of usual least squares for this estimation.</p>
+</div>
+<div class="section" id="code-example">
+<h2>Code example<a class="headerlink" href="#code-example" title="Permalink to this headline">¶</a></h2>
+<p>I’ll now present a simple code example to illustrate the procedure.</p>
+<div class="section" id="defining-matrix-a">
+<h3>Defining matrix A<a class="headerlink" href="#defining-matrix-a" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">M</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">A_orig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">A_orig</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.548814</td>
+      <td>0.715189</td>
+      <td>0.602763</td>
+      <td>0.544883</td>
+      <td>0.423655</td>
+      <td>0.645894</td>
+      <td>0.437587</td>
+      <td>0.891773</td>
+      <td>0.963663</td>
+      <td>0.383442</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.791725</td>
+      <td>0.528895</td>
+      <td>0.568045</td>
+      <td>0.925597</td>
+      <td>0.071036</td>
+      <td>0.087129</td>
+      <td>0.020218</td>
+      <td>0.832620</td>
+      <td>0.778157</td>
+      <td>0.870012</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.978618</td>
+      <td>0.799159</td>
+      <td>0.461479</td>
+      <td>0.780529</td>
+      <td>0.118274</td>
+      <td>0.639921</td>
+      <td>0.143353</td>
+      <td>0.944669</td>
+      <td>0.521848</td>
+      <td>0.414662</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.264556</td>
+      <td>0.774234</td>
+      <td>0.456150</td>
+      <td>0.568434</td>
+      <td>0.018790</td>
+      <td>0.617635</td>
+      <td>0.612096</td>
+      <td>0.616934</td>
+      <td>0.943748</td>
+      <td>0.681820</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.359508</td>
+      <td>0.437032</td>
+      <td>0.697631</td>
+      <td>0.060225</td>
+      <td>0.666767</td>
+      <td>0.670638</td>
+      <td>0.210383</td>
+      <td>0.128926</td>
+      <td>0.315428</td>
+      <td>0.363711</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="masking-a-few-entries">
+<h3>Masking a few entries<a class="headerlink" href="#masking-a-few-entries" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">A_orig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+
+<span class="c1"># Masking for last user. </span>
+<span class="n">A</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will be using A2 (first 19 users) matrix for learning the movie factors and the user factors for the 19 users</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A2</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+<span class="n">A2</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(19, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">A_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>0.715189</td>
+      <td>0.602763</td>
+      <td>0.544883</td>
+      <td>0.423655</td>
+      <td>0.645894</td>
+      <td>0.437587</td>
+      <td>0.891773</td>
+      <td>0.963663</td>
+      <td>0.383442</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.791725</td>
+      <td>0.528895</td>
+      <td>0.568045</td>
+      <td>0.925597</td>
+      <td>0.071036</td>
+      <td>0.087129</td>
+      <td>0.020218</td>
+      <td>0.832620</td>
+      <td>0.778157</td>
+      <td>0.870012</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.978618</td>
+      <td>0.799159</td>
+      <td>0.461479</td>
+      <td>0.780529</td>
+      <td>0.118274</td>
+      <td>0.639921</td>
+      <td>0.143353</td>
+      <td>0.944669</td>
+      <td>0.521848</td>
+      <td>0.414662</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.264556</td>
+      <td>NaN</td>
+      <td>0.456150</td>
+      <td>0.568434</td>
+      <td>0.018790</td>
+      <td>0.617635</td>
+      <td>0.612096</td>
+      <td>0.616934</td>
+      <td>0.943748</td>
+      <td>0.681820</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.359508</td>
+      <td>0.437032</td>
+      <td>0.697631</td>
+      <td>0.060225</td>
+      <td>0.666767</td>
+      <td>0.670638</td>
+      <td>0.210383</td>
+      <td>0.128926</td>
+      <td>0.315428</td>
+      <td>0.363711</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="defining-matrices-w-and-h-learning-on-m-1-users-and-n-movies">
+<h3>Defining matrices W and H (learning on M-1 users and N movies)<a class="headerlink" href="#defining-matrices-w-and-h-learning-on-m-1-users-and-n-movies" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="p">)))</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">)))</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="o">*</span><span class="n">W</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">K</span><span class="o">*</span><span class="n">H</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">W</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.078709</td>
+      <td>0.175784</td>
+      <td>0.095359</td>
+      <td>0.045339</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.006230</td>
+      <td>0.016976</td>
+      <td>0.171505</td>
+      <td>0.114531</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.135453</td>
+      <td>0.226355</td>
+      <td>0.250000</td>
+      <td>0.054753</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.167387</td>
+      <td>0.066473</td>
+      <td>0.005213</td>
+      <td>0.191444</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.080785</td>
+      <td>0.096801</td>
+      <td>0.148514</td>
+      <td>0.209789</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">H</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.239700</td>
+      <td>0.203498</td>
+      <td>0.160529</td>
+      <td>0.222617</td>
+      <td>0.074611</td>
+      <td>0.216164</td>
+      <td>0.157328</td>
+      <td>0.003370</td>
+      <td>0.088415</td>
+      <td>0.037721</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.250000</td>
+      <td>0.121806</td>
+      <td>0.126649</td>
+      <td>0.162827</td>
+      <td>0.093851</td>
+      <td>0.034858</td>
+      <td>0.209333</td>
+      <td>0.048340</td>
+      <td>0.130195</td>
+      <td>0.057117</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.024914</td>
+      <td>0.219537</td>
+      <td>0.247731</td>
+      <td>0.244654</td>
+      <td>0.230833</td>
+      <td>0.197093</td>
+      <td>0.084828</td>
+      <td>0.020651</td>
+      <td>0.103694</td>
+      <td>0.059133</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.033735</td>
+      <td>0.013604</td>
+      <td>0.184756</td>
+      <td>0.002910</td>
+      <td>0.196210</td>
+      <td>0.037417</td>
+      <td>0.020248</td>
+      <td>0.022815</td>
+      <td>0.171121</td>
+      <td>0.062477</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="defining-the-cost-that-we-want-to-minimise">
+<h3>Defining the cost that we want to minimise<a class="headerlink" href="#defining-the-cost-that-we-want-to-minimise" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span>
+    <span class="n">WH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+    <span class="n">A_WH</span> <span class="o">=</span> <span class="n">A</span><span class="o">-</span><span class="n">WH</span>
+    <span class="k">return</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A_WH</span><span class="p">,</span> <span class="s1">&#39;fro&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, since A has missing entries, we have to define the cost in terms of the entries present in A</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">WH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+    <span class="n">WH_mask</span> <span class="o">=</span> <span class="n">WH</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">A_mask</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">A_WH_mask</span> <span class="o">=</span> <span class="n">A_mask</span><span class="o">-</span><span class="n">WH_mask</span>
+    <span class="c1"># Since now A_WH_mask is a vector, we use L2 instead of Frobenius norm for matrix</span>
+    <span class="k">return</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A_WH_mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let us just try to see the cost of the initial set of values of W and H we randomly assigned. Notice, we pass A2!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cost</span><span class="p">(</span><span class="n">A2</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.2333001567031294
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="alternating-nnls-procedure">
+<h3>Alternating NNLS procedure<a class="headerlink" href="#alternating-nnls-procedure" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_iter</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">num_display_cost</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_iter</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">nnls</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iter</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">2</span> ==0:
+        <span class="c1"># Learn H, given A and W</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">mask_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">A2</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
+            <span class="n">H</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">nnls</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="n">mask_rows</span><span class="p">],</span> <span class="n">A2</span><span class="p">[:,</span><span class="n">j</span><span class="p">][</span><span class="n">mask_rows</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">mask_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">A2</span><span class="p">[</span><span class="n">j</span><span class="p">,:])</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
+            <span class="n">W</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">nnls</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">transpose</span><span class="p">()[</span><span class="n">mask_rows</span><span class="p">],</span> <span class="n">A2</span><span class="p">[</span><span class="n">j</span><span class="p">,:][</span><span class="n">mask_rows</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">WH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">A2</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">num_display_cost</span>==0:
+        <span class="nb">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span>
+        
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 3.74162948918
+100 2.25416363991
+200 2.25258698617
+300 2.25229707846
+400 2.25131714233
+500 2.24968386447
+600 2.24967129897
+700 2.24965023589
+800 2.24961410381
+900 2.24955008837
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">))</span>
+<span class="n">A_pred</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.590301</td>
+      <td>0.653038</td>
+      <td>0.531940</td>
+      <td>0.623272</td>
+      <td>0.584763</td>
+      <td>0.630835</td>
+      <td>0.574041</td>
+      <td>0.700139</td>
+      <td>0.841706</td>
+      <td>0.565808</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.802724</td>
+      <td>0.532299</td>
+      <td>0.482430</td>
+      <td>1.017968</td>
+      <td>0.149923</td>
+      <td>0.449312</td>
+      <td>0.097775</td>
+      <td>0.708727</td>
+      <td>0.506595</td>
+      <td>0.846219</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.764296</td>
+      <td>0.563711</td>
+      <td>0.527292</td>
+      <td>0.905236</td>
+      <td>0.306275</td>
+      <td>0.505674</td>
+      <td>0.223192</td>
+      <td>0.705882</td>
+      <td>0.604356</td>
+      <td>0.757878</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.373539</td>
+      <td>0.745239</td>
+      <td>0.334948</td>
+      <td>0.663219</td>
+      <td>0.132686</td>
+      <td>0.551844</td>
+      <td>0.760420</td>
+      <td>0.598546</td>
+      <td>0.808108</td>
+      <td>0.627732</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.467623</td>
+      <td>0.331457</td>
+      <td>0.617263</td>
+      <td>0.239449</td>
+      <td>0.634455</td>
+      <td>0.370041</td>
+      <td>0.294412</td>
+      <td>0.288539</td>
+      <td>0.484822</td>
+      <td>0.126945</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="learning-home-factors-for-m-th-home">
+<h3>Learning home factors for <span class="math notranslate nohighlight">\(M^{th}\)</span> home<a class="headerlink" href="#learning-home-factors-for-m-th-home" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_m</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+<span class="n">A_m_transpose</span> <span class="o">=</span> <span class="n">A_m</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">A_m_transpose</span><span class="p">)</span>
+<span class="n">W_m</span> <span class="o">=</span> <span class="n">nnls</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">A_m_transpose</span><span class="p">[</span><span class="n">mask</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">W_m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.12248095,  0.20778687,  0.15185613,  0.        ])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="predicting-for-m-th-home">
+<h3>Predicting for <span class="math notranslate nohighlight">\(M^{th}\)</span> home<a class="headerlink" href="#predicting-for-m-th-home" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratings_m_home</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">W_m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratings_m_home</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.4245947 ,  0.57447552])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_orig</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:][</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.18619301,  0.25435648])
+</pre></div>
+</div>
+</div>
+</div>
+<p>There you go, we are able to get ratings for the <span class="math notranslate nohighlight">\(M^{th}\)</span> user for the movies that they have not seen. We only trained the model on the other users! Ofcourse, these numbers might not look so impressive. However, this was just a toy example based on random data. In reality, we could expect better results!</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "prog-ml/prog-ml.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/tensor_factorization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../hmms/2013-07-01-hmm_continuous.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">HMM Simulation for Continuous HMM</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="2017-04-20-parafac-out-tensor.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Out of Tensor factorisation</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By The Jupyter Book community<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

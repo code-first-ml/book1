@@ -1,0 +1,1935 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A programming introduction to GANs &#8212; Prog-ML</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "prog-ml/prog-ml.github.io");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="HMM Simulation for Unfair Casino Problem" href="../hmms/2013-06-01-hmm_simulate.html" />
+    <link rel="prev" title="Coordinate descent failure example" href="../linear_regression/2022_02_21_coordinate_descent_failure.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/prog-ml.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Prog-ML</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Prog-ML
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction/mle_coin.html">
+   MLE, MAP and Fully Bayesian (conjugate prior and MCMC) for coin toss
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction/variational.html">
+   Variational Inference from scratch in JAX
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Probability Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/sample-space.html">
+   Sample Space
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/random-variable.html">
+   Random Variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/pmf.html">
+   Probability Mass Function (PMF)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Continuous Probability Distributions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/univariate-normal.html">
+   Properties of RV
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/univariate-normal-expectations.html">
+   Derivations for moments of univariate normal distribution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/mvn-introduction.html">
+   Multivariate Normal Distribution: Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probability/mvn-marginal.html">
+   Multivariate Normal Distribution: Marginals
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-23-bayesian-ml.html">
+   Bayesian ML: Fundamentals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-04-14-bayesian-linear-regression.html">
+   Bayesian linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-29-bayesian-model-selection.html">
+   Bayesian model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-27-Marginal-Likelihood-2.html">
+   Marginal likelihood
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml/2021-03-31-derivation-of-marginal-likelihood.html">
+   Marginal likelihood for Bayesian linear regression
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sampling from Distributions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/rejection-sampling-lr.html">
+   Simple rejection sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/Metropolis-Hastings.html">
+   Metropolis Hastings
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2021-03-10-importance-sampling.html">
+   Importance sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2021-03-10-rejection-sampling.html">
+   Rejection sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2022-02-04-sampling-normal.html">
+   Sampling from univariate and multivariate normal distributions using Box-Muller transform
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2020-04-16-inverse-transform.html">
+   Sampling from common distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2014-05-01-gibbs-sampling.html">
+   Gibbs sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sampling/2014-07-01-mcmc_coins.html">
+   Coin tosses and MCMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Graphical Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../graphical_models/2022-02-15-draw-graphical-models.html">
+   Drawing graphical models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Mixture Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mixture_models/2022-02-14-GMM.html">
+   GMM learning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information Theory
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../information_theory/kl-divergence.html">
+   Understanding KL-Divergence
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Variational Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../variational_models/2022-02-12-variational-inference.html">
+   Variational Inference
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with PyMC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-11-blr-pymc.html">
+   Bayesian linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-12-logistic-bayesian.html">
+   Bayesian logistic regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-03-16-GP-PyMC3.html">
+   Gaussian process regression in PyMC
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-03-17-lls-gp-pymc3.html">
+   Local Lengthscale GP with PyMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Pyro
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2021-08-20-Bayesian.html">
+   Probabilistic Programming in Pyro
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2022_02_17_pyro_linreg.html">
+   Linear Regression using Pyro
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pyro/2022-02-20-condition-pyro.html">
+   Pyro Conditioning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with PyTorch
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-09-pytorch-learn-normal.html">
+   Maximum Likelihood Estimation (MLE) for parameters of univariate and multivariate normal distribution in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-11-pytorch-learn-normal-map.html">
+   Maximum A-Posteriori (MAP) for parameters of univariate and multivariate normal distribution in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-17-ppca.html">
+   Probabilstic PCA using PyTorch distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-14-logistic-regression.html">
+   Logistic Regression using PyTorch distributions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Tensorflow Probability
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-26-tfp-distributions.html">
+   Testing out some distributions in Tensorflow Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-07-coin-toss.html">
+   Coin Toss (MLE, MAP, Fully Bayesian) in TF Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-28-tfp-linear-regression.html">
+   Linear Regression in Tensorflow Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-lr.html">
+   Linear Regression in TF Probability using JointDistributionCoroutineAutoBatched
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-simple-dgm.html">
+   Simple Directed Graphical Models in TF Probability
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Bayesian ML with Julia
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../bayesian_ml_with_julia/2021-09-01-Hello-Julia-Language.html">
+   Linear Regression from scratch in Julia
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Gaussian Processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-03-26-gp.html">
+   Some experiments in Gaussian Processes Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-15-LLS-GP.html">
+   Local Lengthscale GP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-15-deep-gp-from-scratch.html">
+   Deep Kernel Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-16-ard-gp.html">
+   Automatic relevance determination (ARD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-04-16-GP-vs-DeepGP.html">
+   GP v/s Deep GP on 2d data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2022-02-23-gp_rff.html">
+   Gaussian Processes with Random Fourier Features
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-03-29-param-learning.html">
+   Learning Gaussian Process regression parameters using gradient descent
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2021-09-03-param-learning-sgd.html">
+   Learning Gaussian Process regression parameters using mini-batch stochastic gradient descent
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/2020-06-26-gp-understand.html">
+   Understanding Kernels in Gaussian Processes Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/pyro-deep-gp.html">
+   Deep Kernel Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gaussian_processes/pyro-binary-classification.html">
+   GP Classification
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Regression
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../linear_regression/2022_02_21_coordinate_descent_failure.html">
+   Coordinate descent failure example
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Generative Adversarial Networks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   A programming introduction to GANs
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Hidden Markov Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hmms/2013-06-01-hmm_simulate.html">
+   HMM Simulation for Unfair Casino Problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hmms/2013-07-01-hmm_continuous.html">
+   HMM Simulation for Continuous HMM
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tensor Factorization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tensor_factorization/2017-04-19-nmf-out-matrix.html">
+   Out of matrix non-negative matrix factorisation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tensor_factorization/2017-04-20-parafac-out-tensor.html">
+   Out of Tensor factorisation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tensor_factorization/2017-08-13-mf-autograd-adagrad.html">
+   Adagrad based matrix factorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tensor_factorization/2017-04-21-constrained-nmf-cvx.html">
+   Constrained Non-negative matrix factorisation using CVXPY
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Neural Networks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-03-08-keras-neural-non-linear.html">
+   Some Neural Network Classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-02-28-xor-relu-vector.html">
+   Learning neural network for XOR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2020-03-02-linear-scratch.html">
+   Neural Networks from scratch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../neural_networks/2018-01-13-denoising.html">
+   Signal denoising using RNNs in PyTorch
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Expectation Maximization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../em/2014-06-01-em.html">
+   Programatically understanding Expectation Maximization
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Recommender Systems
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../recommender_systems/2017-12-18-recommend-keras.html">
+   Recommender Systems in Keras
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../recommender_systems/2017-12-29-neural-collaborative-filtering.html">
+   Neural Networks for Collaborative Filtering
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Active Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2018-06-20-active-committee.html">
+   Active Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2022_01_24_Query_by_Committee.html">
+   Query by Committee
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.html">
+   Active Learning with Bayesian Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../active_learning/2022-03-06-maximal-expected-error-reduction.html">
+   Problem with Expected Model Change
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  JAX
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../jax/introduction-jax.html">
+   Using PRNG key
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml_softwares/2022-02-09-autograd-pytorch-jax.html">
+   Autograd in JAX and PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml_softwares/2017-08-12-linear-regression-adagrad-vs-gd.html">
+   Programatically understanding Adagrad
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Appendix 1 - Linear Algebra for ML
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-eigen.html">
+   Eigen values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-determinant.html">
+   Determinant
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-Positive-semi-definite.html">
+   Positive definiteness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2022-02-11-matrix.html">
+   Matrix as transformation and interpreting low rank matrix
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Appendix 2 - Stochastic processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.html">
+   Stochastic processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-17-Stationary-Time_Series.html">
+   Stationarity of time-series stochastic process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-23-Stationarity-stochastic-processes.html">
+   Stationarity of stochastic processes II
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references/references.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/notebooks/gans/2021-05-31-GAN.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/gans/2021-05-31-GAN.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/gans/2021-05-31-GAN.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/gans/2021-05-31-GAN.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/gans/2021-05-31-GAN.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal">
+   Goal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overall-block-diagram">
+   Overall Block Diagram
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-true-distribution">
+   Creating “true” distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-the-discriminator">
+   Creating the discriminator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-the-generator">
+   Creating the generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-samples-from-generator">
+   Generating samples from Generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sampling-from-the-real-train-dataset">
+   Sampling from the Real (Train) Dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-the-gan">
+   Training the GAN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convergence">
+   Convergence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-some-fake-images-from-the-trained-generator">
+   Generating some “fake” images from the trained generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualising-evolution-of-generator">
+   Visualising evolution of generator
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>A programming introduction to GANs</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal">
+   Goal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overall-block-diagram">
+   Overall Block Diagram
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-true-distribution">
+   Creating “true” distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-the-discriminator">
+   Creating the discriminator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-the-generator">
+   Creating the generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-samples-from-generator">
+   Generating samples from Generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sampling-from-the-real-train-dataset">
+   Sampling from the Real (Train) Dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-the-gan">
+   Training the GAN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convergence">
+   Convergence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-some-fake-images-from-the-trained-generator">
+   Generating some “fake” images from the trained generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualising-evolution-of-generator">
+   Visualising evolution of generator
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="a-programming-introduction-to-gans">
+<h1>A programming introduction to GANs<a class="headerlink" href="#a-programming-introduction-to-gans" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>toc: true</p></li>
+<li><p>badges: true</p></li>
+<li><p>comments: true</p></li>
+<li><p>author: Nipun Batra</p></li>
+<li><p>categories: [ML]</p></li>
+</ul>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This is a post about Generative Adversarial Networks (GANs). This post is very heavily influenced and borrows code from:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=8L11aMN5KY8">Video from Luis Serrano</a></p></li>
+<li><p>Heavily borrowed code from this <a class="reference external" href="https://machinelearningmastery.com/how-to-develop-a-generative-adversarial-network-for-an-mnist-handwritten-digits-from-scratch-in-keras/">article</a> on machine learning mastery</p></li>
+</ul>
+<p>These folks deserve all the credit! I am writing this post mostly for my learning.</p>
+<p>I’d highly recommend reading the above two mentioned resources.</p>
+</div>
+<div class="section" id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<p>The goal of GANs is to generate <a class="reference external" href="https://en.wikipedia.org/wiki/Generative_adversarial_network">realistic data</a>, i.e. data with similar statistics as the training data.</p>
+<p>See below a “generated” face on <a class="reference external" href="https://thispersondoesnotexist.com">https://thispersondoesnotexist.com</a></p>
+<p>Refresh this page to get a new face each time!</p>
+<p>These are people that do not exist but their faces have been generated using GANs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">IFrame</span>
+<span class="n">IFrame</span><span class="p">(</span><span class="s2">&quot;https://thispersondoesnotexist.com&quot;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="400"
+    src="https://thispersondoesnotexist.com"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+</div>
+<div class="section" id="overall-block-diagram">
+<h2>Overall Block Diagram<a class="headerlink" href="#overall-block-diagram" title="Permalink to this headline">¶</a></h2>
+<p>Conceptually, GANs are simple.They have two main components:</p>
+<ul class="simple">
+<li><p>A discriminator: that tries to accurately tell generated and real data (from training data) apart</p></li>
+<li><p>A generator: that generates data given some random numbers</p></li>
+</ul>
+<p>The goal of GANs is to use the generator to create realistic data such that the discriminator thinks it is real (coming from the training dataset)</p>
+<p><img alt="" src="notebooks/gans/GAN-1.jpg" /></p>
+<p>The two components discriminator and generator are “fighting” where:</p>
+<ul class="simple">
+<li><p>the goal of the discriminator is to tell apart fake (generated) data from true data (from training set) even when the generator is fairly good</p></li>
+<li><p>the goal of the generator is to generate realistics data such that the discriminator thinks it is real data</p></li>
+</ul>
+<p><img alt="" src="notebooks/gans/GAN-2.jpg" /></p>
+</div>
+<div class="section" id="creating-true-distribution">
+<h2>Creating “true” distribution<a class="headerlink" href="#creating-true-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Let us now create some data from the true/known distribution. We will be essentially creating a 2x2 matrix (image) as explained in Luis Serrano’s tutorial. The (0, 0) and (1, 1) position will be a high number between 0.8 and 1 whereas the other two positions (0, 1) and (1, 0) have values between 0 and 0.1</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">mediapy</span> <span class="k">as</span> <span class="nn">media</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>  <span class="c1"># FATAL</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;tensorflow&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FATAL</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>   
+<span class="n">tf</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SIZE</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">),</span> 
+                   <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">faces</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5000, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_face</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">f_reshape</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f_reshape</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_faces</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s1">&#39;Image=</span><span class="si">{</span><span class="n">im</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">faces</span><span class="p">[</span><span class="n">im</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">im</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">faces</span><span class="p">))[::</span><span class="n">subset</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">media</span><span class="o">.</span><span class="n">show_images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">)</span>
+
+<span class="n">plot_faces</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD49esXw////3l4eAAppQYQDAt6PgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=700</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPQ09P78+cPw////xkYGAAwCwZ8YqkpwgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=1400</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgZGT8//8/w////xkYGAAqCAX+rdWO7AAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2100</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w8+fP5WUlAAqVgZPkzdpVQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2800</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w9+/f9XV1QEqsAZqeOCZRQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=3500</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYmL68+cPw////xkYGAAp2wX4NHILpgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4200</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w58/fwQFBQEqHQYlDCRycQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4900</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4+/cvw////0VFRQEqLAY0rkUlGwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table></div></div>
+</div>
+<p>The above shows some samples drawn from the true distibution. Let us also now create some random/noisy samples. These samples do not have any relationship between the 4 positions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examples of noisy images</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">/</span><span class="n">noise</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP48eMHAwMD4////3/+/AkAN7wI0pywQt8AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=1</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMoLy9/+fIlAwMDw////wEvVwceThTtKAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGM4evTo////mVatWsXIyAgAQLEHUCGWXXkAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=3</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4+fMnAwMDw////yMiIgA0EwbxaKiMEgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GJ48ecLAwAAAS3wIk3r0+GAAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=5</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYunTp9+/fGf7//8/AwAAAQEAH0pWnKE0AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGN8+fLlhg0bGBgYGP7//w8AOWoHyk/l43sAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=7</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGM4efLk////GRgYGPLy8gA5ywajt+fgowAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=8</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////t2/fmBgZGc+dOwcAQtsIUB/zmOcAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=9</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4//8/AwMDo4ODw8uXLwEtJwZ6SX1otwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=10</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGM0NTUVFBRk+P//PwMDAwAYTAPRhJBepAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=11</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOor69nYGBgunLlyv///wEkXgb5Ml0r/wAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=12</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNsbW3V1NRk+P//PwMDAwAmFAUJZD8gQQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=13</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGA4deoUw8WLF////w8AJ5UHz3PIC2IAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=14</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOoqKj4//8/AwMDQ01NDQAuuwXaLS8r3gAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=15</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP49euXjo4OAwMDw////wEt1AZw0/mIBwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=16</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMoLy////8/AwMDAy8vLwAr/QSKtDRseAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=17</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP49+/f////mQ4fPszIyAgASiwIRri0li4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=18</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/k6mp6YYNGwAiPAWveYzRZgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=19</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMoLi7W19dnYGBg+P//PwAbKQTkOlzmtwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=20</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4//8/AwMD47x589TV1QEuHQVOGAWpaQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=21</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPcv3+/rKwsw////xkYGAAs+AWT7tvmzQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=22</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGDYsGEDw58/f/7//w8AJ1wIAjERcdMAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=23</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP49u1bTk4OAwMDw////wE0BAck2Nkw9wAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=24</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4//8/Pz8/EyMjY2xsLAAnygRHzXzc8gAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=25</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGO4ePEiAwMD4//////9+wcAMl4IbLp2fIwAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=26</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/k7Cw8MePHwEhxAYM5jALOQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=27</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMwNjb+//8/AwMDQ3h4OAAkKQSc/x+mGgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=28</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNcsGDB2bNnGf7//8/AwAAAOywHRqZbGf4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=29</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGA4cOAAw5cvX/7//w8AKJQIGjLyBq4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=30</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNwd3f///8/AwMDw9KlSwEozQXCxa/2sgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=31</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4//8/AwMD44oVK9TU1AAurQVpjMGVMwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=32</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMQFxf///8/AwMDQ1xcHAAgYwRdqB3tkwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=33</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP8////7NmzGRgYGExNTQE1jwVvh0rvNAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=34</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMMCAjQ1NRkYGBg+P//PwAVqQRqp7CUGgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=35</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/46tXr968eQMALjgIgTdEaLkAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=36</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////58+fmRgZGbdu3QoAQfQH/BLqH3oAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=37</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP4//8/AwMD07Vr116/fg0ANgQIQw1AYE8AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=38</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////hg0bGN69e8fAwAAARHoH2RqyP9sAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=39</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGAICAhg+Pbt2////wEc4gbQoslpZgAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table></div></div>
+</div>
+</div>
+<div class="section" id="creating-the-discriminator">
+<h2>Creating the discriminator<a class="headerlink" href="#creating-the-discriminator" title="Permalink to this headline">¶</a></h2>
+<p>Our discriminator is simple.</p>
+<ul class="simple">
+<li><p>It accepts as input a 4 dimensional input (the 2x2 image)</p></li>
+<li><p>It outputs a single number with sigmoid activation denoting the probability of:</p></li>
+<li><p>image being fake or generated by generator or belonging to class 0</p></li>
+<li><p>image being real or sampled from training dataset or belonging to class 1</p></li>
+<li><p>We use the binary cross entropy loss</p></li>
+</ul>
+<p>To make the above crystal clear, I’ll use the following <a class="reference external" href="https://gist.github.com/craffel/2d727968c3aaebd10359">gist</a> to draw this NN</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">draw_nn</span> <span class="kn">import</span> <span class="n">draw_neural_net</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">draw_neural_net</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Discriminator NN&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2021-05-31-GAN_15_0.png" src="../../_images/2021-05-31-GAN_15_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">load_model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+
+<span class="n">discriminator</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+  <span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">)),</span>
+<span class="p">])</span>
+
+<span class="n">discriminator</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;Discriminator&quot;</span>
+
+<span class="n">discriminator</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+    <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">discriminator</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;Discriminator&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 1)                 5         
+=================================================================
+Total params: 5
+Trainable params: 5
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, the discriminator has 5 parameters (4 weights coming from the 4 inputs to the output node and 1 bias term added). Now, let us create the generator.</p>
+</div>
+<div class="section" id="creating-the-generator">
+<h2>Creating the generator<a class="headerlink" href="#creating-the-generator" title="Permalink to this headline">¶</a></h2>
+<p>Let us now create the generator model. We create a very simple one</p>
+<ul class="simple">
+<li><p>It accepts as input a single random number</p></li>
+<li><p>It creates a vector of size 4</p></li>
+</ul>
+<p>The illustration below shows this network. It should be noted that the single random input is an arbitrary choice. We could use any number really!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">draw_neural_net</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Generator NN&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2021-05-31-GAN_19_0.png" src="../../_images/2021-05-31-GAN_19_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">ReLU</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+  <span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">)),</span>
+   <span class="n">ReLU</span><span class="p">(</span><span class="n">max_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> 
+
+<span class="p">])</span>
+
+<span class="n">generator</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;Generator&quot;</span>
+
+<span class="n">generator</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+    <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generator</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;Generator&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense_1 (Dense)              (None, 4)                 8         
+_________________________________________________________________
+module_wrapper (ModuleWrappe (None, 4)                 0         
+=================================================================
+Total params: 8
+Trainable params: 8
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can verify that the network has 8 parameters (4 weights and one bias value per output node)</p>
+</div>
+<div class="section" id="generating-samples-from-generator">
+<h2>Generating samples from Generator<a class="headerlink" href="#generating-samples-from-generator" title="Permalink to this headline">¶</a></h2>
+<p>We can now use our generator to generate some samples and plot them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_fake</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+    <span class="n">x_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_input</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, the samples look random, without any specific pattern and do not resemble the training data as our generator is untrained. Further, it is important to reiterate that the class associated with the fake samples generated from the generator is 0. Thus, we have the line <code class="docutils literal notranslate"><span class="pre">np.zeros((n_samples,</span> <span class="pre">1))</span></code> in the code above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">gen_fake</span><span class="p">(</span><span class="mi">20</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=1</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=3</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////t2/fGP7//8/AwAAATNsI3rLNbrIAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=5</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGOYP3/+////GRgYGP7//w8AN0kH2PCazaMAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=7</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=8</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=9</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=10</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=11</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=12</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=13</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=14</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=15</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=16</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOQkpL6//8/AwMDw////wEklQZJw0UPUgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=17</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////169fGf7//8/AwAAATMAI2zEM5ooAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=18</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=19</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGP8////jx8/GP7//8/AwAAATREI5Nu8ozgAAAAASUVORK5CYII="/></div></div></div></td></tr></table></div></div>
+</div>
+</div>
+<div class="section" id="sampling-from-the-real-train-dataset">
+<h2>Sampling from the Real (Train) Dataset<a class="headerlink" href="#sampling-from-the-real-train-dataset" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_real</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">faces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_samples</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">faces</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">gen_real</span><span class="p">(</span><span class="mi">20</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w79//5iYmAAp4QX+jLgd4wAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=1</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w69fv5SUlAAqZQZSVIjGDQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4/fs3w////zU1NQEqbgZq/Jl8VAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=3</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgZmb+//8/w////xkYGAAqUAYE73dnAgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOQlpb+//8/w+/fvxkYGAAtdAZAWIj+JgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=5</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w69fv8zMzAAq3QaOZoQyYwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w/////n4+AAqOAYliTcXWQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=7</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPg4eH5//8/w+/fvxkYGAArWAYTV4FrZwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=8</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMQFBT8//8/w9+/fxkYGAAsKgYoXIsUqQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=9</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD49esXw////6WlpQEp/wY9IJmqugAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=10</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////3l5eQEqMgYijxKNfQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=11</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPg4OD4//8/w79//xgYGAAq9QYQotar1AAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=12</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOQkpL6//8/w79//xgYGAAtfQZG0XUIvgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=13</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgY2P7//8/w58/fxgYGAAqjwYEgTvdOgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=14</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD48+cPw////3l5eQEp4QYZtAQmTwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=15</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4/fs3w////6WkpAAqFAY93ZVwqgAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=16</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD49+8fw////42MjAAq9QaO64/3sQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=17</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPg5OT89u0bw////xkYGAAqNQX7/ZM3VAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=18</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOQkZH5+vUrw////xkYGAAsxgYxl54QjQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=19</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgZGT8//8/w/fv3xkYGAApkAXmQJCyEgAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table></div></div>
+</div>
+<p>We can clearly see the pattern in the images coming from the training dataset.</p>
+</div>
+<div class="section" id="training-the-gan">
+<h2>Training the GAN<a class="headerlink" href="#training-the-gan" title="Permalink to this headline">¶</a></h2>
+<p>The block diagram below shows the main idea behind training GANs. The procedure is similar to alternative least squares.</p>
+<p><img alt="" src="notebooks/gans/GAN-3.jpg" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">define_gan</span><span class="p">(</span><span class="n">g_model</span><span class="p">,</span> <span class="n">d_model</span><span class="p">):</span>
+    <span class="n">d_model</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g_model</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d_model</span><span class="p">)</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gan_model</span> <span class="o">=</span> <span class="n">define_gan</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is important to note that we will train two networks:</p>
+<ul class="simple">
+<li><p>Discriminator on</p></li>
+<li><p>Fake data (class 0)</p></li>
+<li><p>Real data (class 1)</p></li>
+<li><p>Combined model consisting og Generator + Discriminator (where the Discriminator is is fixed) on</p></li>
+<li><p>Fake data (class 0) posing as real data (class 1) to the model</p></li>
+</ul>
+<p>Thus, we do not train on the generator separately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples_saved</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">N_ITER</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">STEP</span> <span class="o">=</span> <span class="n">N_ITER</span><span class="o">//</span><span class="mi">10</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITER</span><span class="p">):</span>
+    <span class="c1"># Generate some fake data</span>
+    <span class="n">X_fake</span><span class="p">,</span> <span class="n">y_fake</span> <span class="o">=</span> <span class="n">gen_fake</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">X_real</span><span class="p">,</span> <span class="n">y_real</span> <span class="o">=</span> <span class="n">gen_real</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">X_fake</span><span class="p">,</span> <span class="n">X_real</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">y_fake</span><span class="p">,</span> <span class="n">y_real</span><span class="p">))</span>
+    
+    <span class="c1"># Discriminator </span>
+    <span class="n">d_loss</span> <span class="o">=</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">train_on_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        
+    <span class="c1"># Generator</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">g_loss</span><span class="o">=</span> <span class="n">gan_model</span><span class="o">.</span><span class="n">train_on_batch</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_samples</span><span class="p">))</span>
+    <span class="n">losses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Gen. loss&#39;</span><span class="p">:</span><span class="n">g_loss</span><span class="p">,</span> <span class="s1">&#39;Disc. loss&#39;</span><span class="p">:</span><span class="n">d_loss</span><span class="p">}</span>
+    
+    <span class="c1"># Save 5 samples</span>
+    <span class="n">samples_saved</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">gen_fake</span><span class="p">(</span><span class="mi">5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">STEP</span>==0:
+        <span class="c1"># Save model</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;models/gen-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iteration: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Discriminator loss: </span><span class="si">{:0.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d_loss</span><span class="p">))</span>
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generator loss: </span><span class="si">{:0.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g_loss</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 0
+Discriminator loss: 0.61
+Generator loss: 0.72
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 100
+Discriminator loss: 0.61
+Generator loss: 0.75
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 200
+Discriminator loss: 0.59
+Generator loss: 0.76
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 300
+Discriminator loss: 0.57
+Generator loss: 0.72
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 400
+Discriminator loss: 0.60
+Generator loss: 0.77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 500
+Discriminator loss: 0.61
+Generator loss: 0.68
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 600
+Discriminator loss: 0.64
+Generator loss: 0.66
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 700
+Discriminator loss: 0.60
+Generator loss: 0.71
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 800
+Discriminator loss: 0.65
+Generator loss: 0.66
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:Found untraced functions such as re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_fn, re_lu_layer_call_fn, re_lu_layer_call_and_return_conditional_losses, re_lu_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 900
+Discriminator loss: 0.70
+Generator loss: 0.63
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="convergence">
+<h2>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">losses_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+<span class="n">losses_df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration Number&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2021-05-31-GAN_37_0.png" src="../../_images/2021-05-31-GAN_37_0.png" />
+</div>
+</div>
+<p>You might epxect that over time the generator loss reduces as it becomes better and correspodingly the discriminator has a harder time!</p>
+</div>
+<div class="section" id="generating-some-fake-images-from-the-trained-generator">
+<h2>Generating some “fake” images from the trained generator<a class="headerlink" href="#generating-some-fake-images-from-the-trained-generator" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">gen_fake</span><span class="p">(</span><span class="mi">20</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=1</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////7W1tQEq5gZ8yd8VKgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=3</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////zU0NAAq1AZz61mzFAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////83MzAArKAadKldxjwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=5</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////xUVFQEqqgZekcUFZgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////6WkpAAqgAZJm844RAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=7</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPg4OD4//8/w////xkYGAArBAYTy4KUnAAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=8</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMIDg7+//8/w////xkYGAA1kAb0zF294gAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=9</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w/////n5+QEqPgYoo0Dm9wAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=10</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=11</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNwcXH5//8/w////xkYGAAzdAbH6bpyFAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=12</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=13</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=14</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=15</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFUlEQVR4nAXBAQEAAACAEP9PF1CpMCnkBftM2nerAAAAAElFTkSuQmCC"/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=16</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNwc3P7//8/w////xkYGAAzvAbNwJuC1QAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=17</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////5WUlAAqsAZho8SErAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=18</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////0NCQgAr3Ab3j99RKgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>Image=19</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOwtbX9//8/w////xkYGAAyeAay8NfZbQAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table></div></div>
+</div>
+<p>You could not tell, right! The generator has been trained well!</p>
+</div>
+<div class="section" id="visualising-evolution-of-generator">
+<h2>Visualising evolution of generator<a class="headerlink" href="#visualising-evolution-of-generator" title="Permalink to this headline">¶</a></h2>
+<p>Let us now visualise the evolution of the generator. To do so, we use the already saved generator models at different iterations and feed them the same “random” input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N_ITER</span><span class="p">,</span> <span class="n">STEP</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]:</span>
+        <span class="n">o</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;It:</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">-Inp:</span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;models/gen-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">inp</span><span class="p">]))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">media</span><span class="o">.</span><span class="n">show_images</span><span class="p">(</span><span class="n">o</span><span class="p">,</span>  <span class="n">border</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:0-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP8//8/AwMDEwMDAwMDAwAkBgMB/DXemwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:0-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:0-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:0-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:0-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNYtWrV////GRgYGP7//w8AONUH+fjktD4AAAAASUVORK5CYII="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:100-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////xkYGAAp8gX9PrPXDAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:100-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/07p16xgYGAAlMwUKrG/M+gAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:100-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/k6qqKgMDAwAdLANvVyJtTQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:100-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGOQkpL6//8/AwMDw////wEklQZJw0UPUgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:100-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMICAj4//8/AwMDw////wEsLQbr/4pjtwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:200-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////69evQoALvAIfJgqbyMAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:200-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////xkYGAAp8gX9PrPXDAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:200-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/05kzZxgYGAAm9QVkjUmo0wAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:200-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/U09PDwMDAwAjNQSkCL0h8wAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:200-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/k5ubGwMDAwAfGwPSPkAwqQAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:300-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////xMTEwEsKgceSbruSwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:300-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////1+9egUAL24Iu7FeOGcAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:300-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////xkYGAAp8gX9PrPXDAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:300-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/05MnTxgYGAAoXQWs2oHAFwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:300-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/07p16xgYGAAlMwUKrG/M+gAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:400-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////9XV1QEqzgZwpZ6tXQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:400-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0/////ft2wcALmYIN0Wxa1IAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:400-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////79//w4AL7wI4p+4xF4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:400-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////xkYGAAp8gX9PrPXDAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:400-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/09OnTxkYGAAobAWvmsYOegAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:500-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////3l5eQEqMgYijxKNfQAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:500-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////ydNmgQALV4Hs8qTgbQAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:500-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////+/duwcALyYIl0Ii3e4AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:500-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0//////9+wcAL+YI94+Cf6gAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:500-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/08+fPxkYGAApmAXrzm1gjwAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:600-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////xkZGQEp6gX+6dxoIwAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:600-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////4uKigAskAdR5iw7HAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:600-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////w8cOAAALnIIPY/pcIQAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:600-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////1++fAkAL2gIuLZH580AAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:600-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////xkYGAAp8gX9PrPXDAAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:700-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgZWX9//8/w////xkYGAAqmAYKB6e/6QAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:700-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////8PDwwEr7gcAByS8ewAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:700-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////6dNmwYALXYHv3iRcDcAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:700-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////w8fPgwALoQIRmPqJfAAAAAASUVORK5CYII="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:700-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////79//w4AL7wI4p+4xF4AAAAASUVORK5CYII="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:800-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgZ2f///8/w////xkYGAAq4AYQ9m+hXAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:800-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////y0sLAArNAajaD6uxAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:800-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////9PT0wEsTgcwfeFGcAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:800-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/0////9va2gAtFgePrCY74gAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:800-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGNgYGD4//8/0////48ePQoALpAITNVePhMAAAAASUVORK5CYII="/></div></div></div></td></tr></table><table class="show_images" style="border-spacing:0;"><tr><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:900-Inp:0.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPg4OD4//8/w////xkYGAArBAYTy4KUnAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:900-Inp:0.2</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////4WFhQEqVgY0XVLTGgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:900-Inp:0.4</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////zU1NQEq2gZ2weabMAAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:900-Inp:0.6</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////52dnQErdgbEdPR4QgAAAABJRU5ErkJggg=="/></div></div></div></td><td><div style="display:flex; align-items:left;">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+      <div>It:900-Inp:1.0</div><div><img width="80" height="80" style="border:1px solid black; image-rendering:pixelated; object-fit:cover;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNgYGD4//8/w////3NzcwEscgdCGmFvmAAAAABJRU5ErkJggg=="/></div></div></div></td></tr></table></div></div>
+</div>
+<p>We can see above the improvement of the generation over the different iterations and different inputs! That is it for this article. Happing GANning.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "prog-ml/prog-ml.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/gans"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../linear_regression/2022_02_21_coordinate_descent_failure.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Coordinate descent failure example</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../hmms/2013-06-01-hmm_simulate.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">HMM Simulation for Unfair Casino Problem</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By The Jupyter Book community<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -800,14 +800,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/code-first-ml/book1"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/code-first-ml/book1/issues/new?title=Issue%20on%20page%20%2Fnotebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button
+        <a class="edit-button" href="https://github.com/code-first-ml/book1/edit/main/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -827,7 +827,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/code-first-ml/book1/main?urlpath=tree/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -835,7 +835,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/code-first-ml/book1/blob/main/notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -980,8 +980,8 @@ const thebe_selector_output = ".output, .cell_output"
 \mathbf{y} = X\boldsymbol{\theta} + \boldsymbol{\epsilon}
 \]</div>
 <p>In Bayesian settings, we can define the Linear regression as following,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4acf0dab-3e6c-4367-a918-42109a72177b">
-<span class="eqno">(11)<a class="headerlink" href="#equation-4acf0dab-3e6c-4367-a918-42109a72177b" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b5562b5a-b9d7-4f2d-b805-130b58541db5">
+<span class="eqno">(11)<a class="headerlink" href="#equation-b5562b5a-b9d7-4f2d-b805-130b58541db5" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(\boldsymbol{\theta}|X, \mathbf{y}) &amp;= \frac{p(\mathbf{y}|X, \boldsymbol{\theta})p(\boldsymbol{\theta})}{p(\mathbf{y}|X)}\\
 \mathcal{N}(\boldsymbol{\theta}|\mathbf{m}_n, S_n) &amp; = \frac{\mathcal{N}(\mathbf{y}|X\boldsymbol{\theta}, \sigma_n^2I)\mathcal{N}(\boldsymbol{\theta}|0, \sigma^2I)}{p(\mathbf{y}|X)}
 \end{align}\]</div>
@@ -1012,15 +1012,15 @@ p(\boldsymbol{\theta}|X, \mathbf{y}) &amp;= \frac{p(\mathbf{y}|X, \boldsymbol{\t
 <div class="section" id="mle-for-theta">
 <h3>MLE for <span class="math notranslate nohighlight">\(\theta\)</span><a class="headerlink" href="#mle-for-theta" title="Permalink to this headline">¶</a></h3>
 <p>Now, we should be able to appreciate the effectiveness of MLE as we can find such <span class="math notranslate nohighlight">\(\theta\)</span> so that our likelihood of observing given data <span class="math notranslate nohighlight">\(D=\mathbf{y}\)</span> is maximized.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5d5f7094-6bd4-477f-a298-9d63842fb446">
-<span class="eqno">(12)<a class="headerlink" href="#equation-5d5f7094-6bd4-477f-a298-9d63842fb446" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f1175d71-5351-4998-80fe-2f839ada1bb9">
+<span class="eqno">(12)<a class="headerlink" href="#equation-f1175d71-5351-4998-80fe-2f839ada1bb9" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(D|\theta) &amp;= \frac{1}{\sqrt{(2\pi)^N}\sigma_n^N}exp\left[-\sum\limits_{i=1}^{N}\frac{(y_i - \theta x_i)^2}{2\sigma_n^2}\right] \\
 \log p(D|\theta) &amp;= -\frac{N}{2}\log(2\pi\sigma_n^2) - \sum\limits_{i=1}^{N}\frac{(y_i - \theta x_i)^2}{2\sigma_n^2}\\
 \arg\min_\theta\;(-\log p(D|\theta))&amp;= \arg\min_\theta \sum\limits_{i=1}^{N}(y_i - \theta x_i)^2\\
 \end{align}\]</div>
 <p>This turns out as the same cost function in linear regression.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d9a7adf0-79dd-4189-8ddb-4b18616521ce">
-<span class="eqno">(13)<a class="headerlink" href="#equation-d9a7adf0-79dd-4189-8ddb-4b18616521ce" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ce7a9e49-5763-4fbf-8b11-b1a2933a5e1c">
+<span class="eqno">(13)<a class="headerlink" href="#equation-ce7a9e49-5763-4fbf-8b11-b1a2933a5e1c" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \frac{d}{d\theta} \log p(D|\theta) &amp;= \sum\limits_{i=1}^{N}\frac{(y_i - \theta x_i)x_i}{\sigma_n^2} = 0\\
 \theta_{MLE} &amp;= \frac{\sum\limits_{i=1}^{N}y_ix_i}{\sum\limits_{i=1}^{N}x_i^2}
 \end{align}\]</div>
@@ -7922,8 +7922,8 @@ zFLcvSyybwQw3d2nh5hLRKQ2bgKygcMJxm30Ax43s0MqvaaJJDXNBiBS//5J8OZ0lJnlmtmVwO+B\
 <div class="section" id="map-for-linear-regression">
 <h3>MAP for linear regression<a class="headerlink" href="#map-for-linear-regression" title="Permalink to this headline">¶</a></h3>
 <p>We have assumed a Gaussian distribution over <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> because likelihood is Gaussian (conjugate priors).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9007dc85-6e8d-4c6a-9ca2-b5a90b9dee09">
-<span class="eqno">(14)<a class="headerlink" href="#equation-9007dc85-6e8d-4c6a-9ca2-b5a90b9dee09" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a0e3f5ce-c6ed-4f7c-a6cb-47f945341e3a">
+<span class="eqno">(14)<a class="headerlink" href="#equation-a0e3f5ce-c6ed-4f7c-a6cb-47f945341e3a" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(\boldsymbol{\theta}) \sim \mathcal{N}(0, \sigma^2I)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -15145,8 +15145,8 @@ GrROAYYDdwYZm8SG/w9y3lV6q1SH4gAAAABJRU5ErkJggg==\
 </div></div>
 </div>
 <p>Now, we will find MAP estimate incorporating the prior.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1c4c2ac5-5ff5-4b2f-b55a-410f9dc03053">
-<span class="eqno">(15)<a class="headerlink" href="#equation-1c4c2ac5-5ff5-4b2f-b55a-410f9dc03053" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d2808c1f-a892-4891-bcba-e621d1a5245e">
+<span class="eqno">(15)<a class="headerlink" href="#equation-d2808c1f-a892-4891-bcba-e621d1a5245e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(\theta|D) \propto p(D|\theta)p(\theta) &amp;= \frac{1}{\sqrt{(2\pi)^N}\sigma_n^N}exp\left[-\frac{1}{2}(\mathbf{y}-\theta\mathbf{x})^T(I\sigma_n^2)^{-1}(\mathbf{y}-\theta\mathbf{x})\right] \frac{1}{\sqrt{2\pi \sigma^2}}exp\left[{-\frac{(\theta-0)^2}{2\sigma^2}}\right]
 \\
 \log [p(D|\theta)p(\theta)] &amp;= -\frac{N}{2}\log(2\pi\sigma_n^2) - \sum\limits_{i=1}^{N}\frac{(y_i - \theta x_i)^2}{2\sigma_n^2} - \frac{1}{2}\log(2\pi \sigma^2)-\frac{\theta^2}{2 \sigma^2}\\
@@ -15226,8 +15226,8 @@ p(\theta|D) \propto p(D|\theta)p(\theta) &amp;= \frac{1}{\sqrt{(2\pi)^N}\sigma_n
 <div class="section" id="bayesian-linear-regression-1d-with-bias-term">
 <h2>Bayesian linear regression (1D with bias term)<a class="headerlink" href="#bayesian-linear-regression-1d-with-bias-term" title="Permalink to this headline">¶</a></h2>
 <p>Now, we will programatically explore MLE and MAP for 1D linear regression after including the bias term.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b1d83301-1fdd-42fd-8ea5-408d21c97e0a">
-<span class="eqno">(16)<a class="headerlink" href="#equation-b1d83301-1fdd-42fd-8ea5-408d21c97e0a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f73bc9af-4660-486f-9689-442833a53dfc">
+<span class="eqno">(16)<a class="headerlink" href="#equation-f73bc9af-4660-486f-9689-442833a53dfc" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathbf{\theta}_{MLE} &amp;= (X^TX)^{-1}X^T\mathbf{y}\\
 \\
 \mathbf{\theta}_{MAP} &amp;= (X^TX + I\frac{\sigma_n^2}{\sigma^2})^{-1}X^T\mathbf{y}
@@ -52885,8 +52885,8 @@ uT1NcCillFJKKaWUUsrtaYJDKaWUUkoppZRSbu//ADPnYD4LwDX8AAAAAElFTkSuQmCC\
 <div class="section" id="posterior-distribution-over-theta">
 <h2>Posterior distribution over <span class="math notranslate nohighlight">\(\theta\)</span><a class="headerlink" href="#posterior-distribution-over-theta" title="Permalink to this headline">¶</a></h2>
 <p>Posterior over <span class="math notranslate nohighlight">\(\theta\)</span> is given as the following,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49976c54-0f78-4d9d-b3ff-63217b9c7fae">
-<span class="eqno">(17)<a class="headerlink" href="#equation-49976c54-0f78-4d9d-b3ff-63217b9c7fae" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-01ff2753-1b39-4807-825c-05485bf901dd">
+<span class="eqno">(17)<a class="headerlink" href="#equation-01ff2753-1b39-4807-825c-05485bf901dd" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(\boldsymbol{\theta}|X, \mathbf{y}) &amp;\sim \mathcal{N}(\mathbf{m}_n, S_n)\\
 \mathbf{m}_n &amp;= \left(X^TX + \frac{\sigma_n^2}{\sigma^2}I\right)X^T\mathbf{y}\\
 S_n &amp;= \left(\frac{1}{\sigma^2}I + \frac{X^TX}{\sigma_n^2}\right)^{-1}
@@ -52951,7 +52951,7 @@ S_n &amp;= \left(\frac{1}{\sigma^2}I + \frac{X^TX}{\sigma_n^2}\right)^{-1}
     {
         requestKernel: true,
         binderOptions: {
-            repo: "prog-ml/prog-ml.github.io",
+            repo: "code-first-ml/book1",
             ref: "main",
         },
         codeMirrorConfig: {

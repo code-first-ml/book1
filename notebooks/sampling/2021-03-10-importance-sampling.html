@@ -800,14 +800,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/code-first-ml/book1"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/sampling/2021-03-10-importance-sampling.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/code-first-ml/book1/issues/new?title=Issue%20on%20page%20%2Fnotebooks/sampling/2021-03-10-importance-sampling.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button
+        <a class="edit-button" href="https://github.com/code-first-ml/book1/edit/main/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -827,7 +827,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/code-first-ml/book1/main?urlpath=tree/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -835,7 +835,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/code-first-ml/book1/blob/main/notebooks/sampling/2021-03-10-importance-sampling.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -973,8 +973,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <p>We can find the marginal likelihood <span class="math notranslate nohighlight">\(z\)</span> using the following technique.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1ccae64b-9587-49cc-86b6-24618b8918ab">
-<span class="eqno">(30)<a class="headerlink" href="#equation-1ccae64b-9587-49cc-86b6-24618b8918ab" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d2bff35b-3d54-4823-8735-8053283f2772">
+<span class="eqno">(30)<a class="headerlink" href="#equation-d2bff35b-3d54-4823-8735-8053283f2772" title="Permalink to this equation">¶</a></span>\[\begin{align}
 z &amp;= \int likelihood(x)\cdot prior(x)\cdot dx\\
 z &amp;= \int \frac{likelihood(x)\cdot prior(x)}{q(x)}\cdot q(x) \cdot dx\\
 z &amp;= \int w(x) \cdot q(x) \cdot dx\\
@@ -1155,7 +1155,7 @@ z &amp;\approx \frac{1}{N}\sum\limits_{i=1}^{N}w(x)
     {
         requestKernel: true,
         binderOptions: {
-            repo: "prog-ml/prog-ml.github.io",
+            repo: "code-first-ml/book1",
             ref: "main",
         },
         codeMirrorConfig: {

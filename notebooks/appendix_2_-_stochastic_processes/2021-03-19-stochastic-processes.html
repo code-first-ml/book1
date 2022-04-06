@@ -800,14 +800,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/code-first-ml/book1"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/code-first-ml/book1/issues/new?title=Issue%20on%20page%20%2Fnotebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button
+        <a class="edit-button" href="https://github.com/code-first-ml/book1/edit/main/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -827,7 +827,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/code-first-ml/book1/main?urlpath=tree/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -835,7 +835,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/code-first-ml/book1/blob/main/notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -27513,16 +27513,16 @@ gCnVfoYD/3a7EUpFCi1gSrWfYcBXbjdCqUihBUyp9hMDHCMi2SKS7nZjlPI6LWBKtZ+ZwOXANuwt\
 </div></div>
 </div>
 <p>Let’s check for expected value and variance of <span class="math notranslate nohighlight">\(f(t)\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-f763dc17-e27c-43af-8595-a5fcbc2517c2">
-<span class="eqno">(37)<a class="headerlink" href="#equation-f763dc17-e27c-43af-8595-a5fcbc2517c2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ca3ba523-c3d1-4a72-a1b0-2d6c211cbc3f">
+<span class="eqno">(37)<a class="headerlink" href="#equation-ca3ba523-c3d1-4a72-a1b0-2d6c211cbc3f" title="Permalink to this equation">¶</a></span>\[\begin{align}
 f(t) &amp;= f(t-1) + I, \text{   where, } I \text{ takes value 1 or -1 with equal probability}\\
 \mathbb{E}(f(t)) &amp;= \mathbb{E}(f(t-1)) + \mathbb{E}(I)\\
                  &amp;= \sum\limits_{time=0}^{t}\mathbb{E}(I)\\
 \mathbb{E}(f(t)) &amp;= 0
 \end{align}\]</div>
 <p>And, variance</p>
-<div class="amsmath math notranslate nohighlight" id="equation-06aa0d08-2952-46c8-a31a-f7e6ade8583c">
-<span class="eqno">(38)<a class="headerlink" href="#equation-06aa0d08-2952-46c8-a31a-f7e6ade8583c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b0b258e9-e243-41ec-8370-386644b84f1e">
+<span class="eqno">(38)<a class="headerlink" href="#equation-b0b258e9-e243-41ec-8370-386644b84f1e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 V(f(t)) &amp;= \sum\limits_{T=0}^{t}V(I)\\
         &amp;= \sum\limits_{T=0}^{t}(\mathbb{E}(I^2) - (\mathbb{E}(I))^2\\
         &amp;= \sum\limits_{T=0}^{t}\mathbb{E}(I^2)\\
@@ -27646,7 +27646,7 @@ V(f(t)) &amp;= t
     {
         requestKernel: true,
         binderOptions: {
-            repo: "prog-ml/prog-ml.github.io",
+            repo: "code-first-ml/book1",
             ref: "main",
         },
         codeMirrorConfig: {

@@ -800,14 +800,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/prog-ml/prog-ml.github.io"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/code-first-ml/book1"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/prog-ml/prog-ml.github.io/issues/new?title=Issue%20on%20page%20%2Fnotebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/code-first-ml/book1/issues/new?title=Issue%20on%20page%20%2Fnotebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/prog-ml/prog-ml.github.io/edit/main/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button
+        <a class="edit-button" href="https://github.com/code-first-ml/book1/edit/main/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -827,7 +827,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/prog-ml/prog-ml.github.io/main?urlpath=tree/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/code-first-ml/book1/main?urlpath=tree/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -835,7 +835,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/prog-ml/prog-ml.github.io/blob/main/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/code-first-ml/book1/blob/main/notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -1075,32 +1075,32 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="a-quick-wrap-up-for-bayesian-linear-regression-blr">
 <h2>A quick wrap-up for Bayesian Linear Regression (BLR)<a class="headerlink" href="#a-quick-wrap-up-for-bayesian-linear-regression-blr" title="Permalink to this headline">¶</a></h2>
 <p>We have a feature matrix <span class="math notranslate nohighlight">\(X\)</span> and a target vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>. We want to obtain <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> vector in such a way that the error <span class="math notranslate nohighlight">\(\boldsymbol{\epsilon}\)</span> for the following equation is minimum.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-39ad7f19-324c-4501-bdd8-30eb714144ae">
-<span class="eqno">(31)<a class="headerlink" href="#equation-39ad7f19-324c-4501-bdd8-30eb714144ae" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2c21e2fa-baf9-4699-9b9a-1d4028f93bca">
+<span class="eqno">(31)<a class="headerlink" href="#equation-2c21e2fa-baf9-4699-9b9a-1d4028f93bca" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 Y = X\boldsymbol{\theta} + \boldsymbol{\epsilon}
 \end{equation}\]</div>
 <p>Prior PDF for <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> is,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09d07c0f-3971-4e43-96fa-5eba90c498d1">
-<span class="eqno">(32)<a class="headerlink" href="#equation-09d07c0f-3971-4e43-96fa-5eba90c498d1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-86b5fb16-0d5f-4750-b869-21275e367db0">
+<span class="eqno">(32)<a class="headerlink" href="#equation-86b5fb16-0d5f-4750-b869-21275e367db0" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(\boldsymbol{\theta}) \sim \mathcal{N}(\mathbf{m}_0, S_0)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(S_0\)</span> is prior covariance matrix, and <span class="math notranslate nohighlight">\(\mathbf{m}_0\)</span> is prior mean.</p>
 <p>Posterier PDF can be given as,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a7155b07-3e6a-45bf-9049-0dd7ab7a9ce0">
-<span class="eqno">(33)<a class="headerlink" href="#equation-a7155b07-3e6a-45bf-9049-0dd7ab7a9ce0" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-babc7441-b698-49e9-8775-11bb941da3e3">
+<span class="eqno">(33)<a class="headerlink" href="#equation-babc7441-b698-49e9-8775-11bb941da3e3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(\boldsymbol{\theta}|X,\mathbf{y}) \sim \mathcal{N}(\boldsymbol{\theta} | \mathbf{m}_n, S_n) \\
 S_n = (S_0^{-1} + \sigma_{mle}^{-2}X^TX) \\
 \mathbf{m}_n = S_n(S_0^{-1}\mathbf{m}_0+\sigma_{mle}^{-2}X^T\mathbf{y})
 \end{equation}\]</div>
 <p>Maximum likelihood estimation of <span class="math notranslate nohighlight">\(\sigma\)</span> can be calculated as,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-01c53ff0-feae-4d1f-a75e-bb5660d0020b">
-<span class="eqno">(34)<a class="headerlink" href="#equation-01c53ff0-feae-4d1f-a75e-bb5660d0020b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-90291417-4e5f-44a7-8763-4d12500f3cd5">
+<span class="eqno">(34)<a class="headerlink" href="#equation-90291417-4e5f-44a7-8763-4d12500f3cd5" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \theta_{mle} = (X^TX)^{-1}X^T\mathbf{y} \\
 \sigma_{mle} = ||\mathbf{y} - X\boldsymbol{\theta}_{mle}||
 \end{equation}\]</div>
 <p>Finally, predicted mean <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}_{mean}\)</span> and predicted covariance matrix <span class="math notranslate nohighlight">\(\hat{Y}_{cov}\)</span> can be given as,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e70a2165-2e70-465b-a459-3abbaa1685d8">
-<span class="eqno">(35)<a class="headerlink" href="#equation-e70a2165-2e70-465b-a459-3abbaa1685d8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ccfe9640-51f7-45e7-940e-fda70be06669">
+<span class="eqno">(35)<a class="headerlink" href="#equation-ccfe9640-51f7-45e7-940e-fda70be06669" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \hat{\mathbf{y}} \sim \mathcal{N}(\hat{\mathbf{y}}_{mean}, \hat{\mathbf{y}}_{cov}) \\
 \hat{\mathbf{y}}_{mean} = X\mathbf{m}_n \\
 \hat{Y}_{cov} = XS_nX^T
@@ -1178,8 +1178,8 @@ S_n = (S_0^{-1} + \sigma_{mle}^{-2}X^TX) \\
 <div class="section" id="creating-visualizing-dataset">
 <h2>Creating &amp; visualizing dataset<a class="headerlink" href="#creating-visualizing-dataset" title="Permalink to this headline">¶</a></h2>
 <p>To start with, let’s create a random dataset with degree 3 polynomial function with some added noise.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4bfccd8b-a9ec-455f-bd42-8cd0fc270990">
-<span class="eqno">(36)<a class="headerlink" href="#equation-4bfccd8b-a9ec-455f-bd42-8cd0fc270990" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-09973756-02fd-4760-90fa-545cfa5f72ef">
+<span class="eqno">(36)<a class="headerlink" href="#equation-09973756-02fd-4760-90fa-545cfa5f72ef" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 Y = (5X^3 - 4X^2 + 3X - 2) + \mathcal{N}(0,1)
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -46669,7 +46669,7 @@ MAE for Bayesian Linear Regression is 0.1573800181180475
     {
         requestKernel: true,
         binderOptions: {
-            repo: "prog-ml/prog-ml.github.io",
+            repo: "code-first-ml/book1",
             ref: "main",
         },
         codeMirrorConfig: {

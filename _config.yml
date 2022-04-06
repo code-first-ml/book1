@@ -19,7 +19,7 @@ launch_buttons:
   thebe: true
 
 repository:
-  url: https://github.com/prog-ml/prog-ml.github.io
+  url: https://github.com/code-first-ml/book1
   branch: main
   
 parse:

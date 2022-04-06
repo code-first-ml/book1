@@ -1,0 +1,151 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Introduction
+    chapters:
+      - file: notebooks/introduction/mle_coin
+      - file: notebooks/introduction/variational
+  - caption: Probability Basics
+    chapters:
+      - file: notebooks/probability/sample-space
+      - file: notebooks/probability/random-variable
+      - file: notebooks/probability/pmf
+  - caption: Continuous Probability Distributions
+    chapters:
+      - file: notebooks/probability/univariate-normal
+      - file: notebooks/probability/univariate-normal-expectations
+      - file: notebooks/probability/mvn-introduction
+      - file: notebooks/probability/mvn-marginal
+  - caption: Bayesian ML
+    chapters:
+      - file: notebooks/bayesian_ml/2021-03-23-bayesian-ml
+      - file: notebooks/bayesian_ml/2021-04-14-bayesian-linear-regression
+      - file: notebooks/bayesian_ml/2021-03-29-bayesian-model-selection
+      - file: notebooks/bayesian_ml/2021-03-27-Marginal-Likelihood-2
+      - file: notebooks/bayesian_ml/2021-03-31-derivation-of-marginal-likelihood
+  - caption: Sampling from Distributions
+    chapters:
+      - file: notebooks/sampling/monte-carlo
+      - file: notebooks/sampling/rejection-sampling-lr
+      - file: notebooks/sampling/Metropolis-Hastings
+      - file: notebooks/sampling/2021-03-10-importance-sampling
+      - file: notebooks/sampling/2021-03-10-rejection-sampling
+      - file: notebooks/sampling/2022-02-04-sampling-normal.ipynb
+      - file: notebooks/sampling/2020-04-16-inverse-transform.ipynb
+      - file: notebooks/sampling/2014-05-01-gibbs-sampling.ipynb
+      - file: notebooks/sampling/2014-07-01-mcmc_coins.ipynb
+  - caption: Graphical Models
+    chapters:
+      - file: notebooks/graphical_models/2022-02-15-draw-graphical-models.ipynb
+  - caption: Mixture Models
+    chapters:
+      - file: notebooks/mixture_models/2022-02-14-GMM.ipynb
+  - caption: Information Theory
+    chapters:
+      - file: notebooks/information_theory/kl-divergence.ipynb
+      - file: notebooks/information_theory/jensen-inequality.ipynb
+
+  - caption: Variational Models
+    chapters:
+      - file: notebooks/variational_models/2022-02-12-variational-inference.ipynb
+  - caption: Bayesian ML with PyMC
+    chapters:
+      - file: notebooks/bayesian_ml_with_pymc/2021-03-11-blr-pymc
+      - file: notebooks/bayesian_ml_with_pymc/2021-03-12-logistic-bayesian
+      - file: notebooks/gaussian_processes/2021-03-16-GP-PyMC3
+      - file: notebooks/gaussian_processes/2021-03-17-lls-gp-pymc3
+  - caption: Bayesian ML with Pyro
+    chapters:
+      - file: notebooks/bayesian_ml_with_pyro/2021-08-20-Bayesian.ipynb
+      - file: notebooks/bayesian_ml_with_pyro/2022_02_17_pyro_linreg.ipynb
+      - file: notebooks/bayesian_ml_with_pyro/2022-02-20-condition-pyro.ipynb
+  - caption: Bayesian ML with PyTorch
+    chapters:
+      - file: notebooks/bayesian_ml_with_pytorch/2022-02-09-pytorch-learn-normal.ipynb
+      - file: notebooks/bayesian_ml_with_pytorch/2022-02-11-pytorch-learn-normal-map.ipynb
+      - file: notebooks/bayesian_ml_with_pytorch/2022-02-17-ppca.ipynb
+      - file: notebooks/bayesian_ml_with_pytorch/2022-02-14-logistic-regression.ipynb
+  - caption: Bayesian ML with Tensorflow Probability
+    chapters:
+      - file: notebooks/bayesian_ml_with_tfp/2022-01-26-tfp-distributions.ipynb
+      - file: notebooks/bayesian_ml_with_tfp/2022-02-07-coin-toss.ipynb
+      - file: notebooks/bayesian_ml_with_tfp/2022-01-28-tfp-linear-regression.ipynb
+      - file: notebooks/bayesian_ml_with_tfp/2022-02-05-lr.ipynb
+      - file: notebooks/bayesian_ml_with_tfp/2022-02-05-simple-dgm.ipynb
+  - caption: Bayesian ML with Julia
+    chapters:
+      - file: notebooks/bayesian_ml_with_julia/2021-09-01-Hello-Julia-Language.ipynb
+  - caption: Gaussian Processes
+    chapters:
+      - file: notebooks/gaussian_processes/2019-08-20-gaussian-processes.ipynb
+      - file: notebooks/gaussian_processes/2020-03-26-gp.ipynb
+      - file: notebooks/gaussian_processes/2021-04-15-LLS-GP
+      - file: notebooks/gaussian_processes/2021-04-15-deep-gp-from-scratch
+      - file: notebooks/gaussian_processes/2021-04-16-ard-gp
+      - file: notebooks/gaussian_processes/2021-04-16-GP-vs-DeepGP
+      - file: notebooks/gaussian_processes/2022-02-23-gp_rff
+      - file: notebooks/gaussian_processes/2020-03-29-param-learning.ipynb
+      - file: notebooks/gaussian_processes/2021-09-03-param-learning-sgd.ipynb
+      - file: notebooks/gaussian_processes/2020-06-26-gp-understand.ipynb
+      - file: notebooks/gaussian_processes/pyro-deep-gp
+      - file: notebooks/gaussian_processes/pyro-binary-classification
+      - file: notebooks/gaussian_processes/simulate-learn-params.ipynb
+
+  - caption: Linear Regression
+    chapters:
+      - file: notebooks/linear_regression/2022_02_21_coordinate_descent_failure.ipynb
+  - caption: Generative Adversarial Networks
+    chapters:
+      - file: notebooks/gans/2021-05-31-GAN.ipynb
+  - caption: Hidden Markov Models
+    chapters:
+      - file: notebooks/hmms/2013-06-01-hmm_simulate.ipynb
+      - file: notebooks/hmms/2013-07-01-hmm_continuous.ipynb
+  - caption: Tensor Factorization
+    chapters:
+      - file: notebooks/tensor_factorization/2017-04-19-nmf-out-matrix.ipynb
+      - file: notebooks/tensor_factorization/2017-04-20-parafac-out-tensor.ipynb
+      - file: notebooks/tensor_factorization/2017-08-13-mf-autograd-adagrad.ipynb
+      - file: notebooks/tensor_factorization/2017-04-21-constrained-nmf-cvx.ipynb
+  - caption: Neural Networks
+    chapters:
+      - file: notebooks/neural_networks/2020-03-08-keras-neural-non-linear.ipynb
+      - file: notebooks/neural_networks/2020-02-28-xor-relu-vector.ipynb
+      - file: notebooks/neural_networks/2020-03-02-linear-scratch.ipynb
+      - file: notebooks/neural_networks/2018-01-13-denoising.ipynb
+  - caption: Expectation Maximization
+    chapters:
+      - file: notebooks/em/2014-06-01-em.ipynb
+  - caption: Recommender Systems
+    chapters:
+      - file: notebooks/recommender_systems/2017-12-18-recommend-keras.ipynb
+      - file: notebooks/recommender_systems/2017-12-29-neural-collaborative-filtering.ipynb
+  - caption: Active Learning
+    chapters:
+      - file: notebooks/active_learning/2018-06-20-active-committee
+      - file: notebooks/active_learning/2022_01_24_Query_by_Committee.ipynb
+      - file: notebooks/active_learning/2020-04-21-active-learning-with-bayesian-linear-regression
+      - file: notebooks/active_learning/2022-03-06-maximal-expected-error-reduction
+
+  - caption: JAX
+    chapters:
+      - file: notebooks/jax/introduction-jax.ipynb
+      - file: notebooks/ml_softwares/2022-02-09-autograd-pytorch-jax.ipynb
+      - file: notebooks/ml_softwares/2017-08-12-linear-regression-adagrad-vs-gd.ipynb
+  - caption: Others
+    chapters:
+      - file: notebooks/others/2021-03-24-sigmoid
+  - caption: Appendix 1 - Linear Algebra for ML
+    chapters:
+      - file: notebooks/appendix_1_-_linear_algebra_for_ml/2021-03-15-eigen
+      - file: notebooks/appendix_1_-_linear_algebra_for_ml/2021-03-15-determinant
+      - file: notebooks/appendix_1_-_linear_algebra_for_ml/2021-03-15-Positive-semi-definite
+      - file: notebooks/appendix_1_-_linear_algebra_for_ml/2022-02-11-matrix.ipynb
+  - caption: Appendix 2 - Stochastic processes
+    chapters:
+      - file: notebooks/appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes
+      - file: notebooks/appendix_2_-_stochastic_processes/2021-03-17-Stationary-Time_Series
+      - file: notebooks/appendix_2_-_stochastic_processes/2021-03-23-Stationarity-stochastic-processes
+  - caption: References
+    chapters:
+      - file: notebooks/references/references.md

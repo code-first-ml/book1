@@ -1,0 +1,40 @@
+#######################################################################################
+# A default configuration that will be loaded for all jupyter books
+# See the documentation for help and more options: 
+# https://jupyterbook.org/customize/config.html
+
+#######################################################################################
+# Book settings
+title                       : Prog-ML  # The title of the book. Will be placed in the left navbar.
+copyright                   : "2022"  # Copyright year to be placed in the footer
+logo                        : prog-ml.jpg
+execute:
+  execute_notebooks: false
+  
+bibtex_bibfiles:
+  - references.bib
+  
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
+  thebe: true
+
+repository:
+  url: https://github.com/prog-ml/prog-ml.github.io
+  branch: main
+  
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify 
+    - substitution
+
+html:
+  use_edit_page_button      : true
+  use_issues_button         : true  # Whether to add an "open an issue" button
+  use_repository_button     : true  # Whether to add a link to your repository button
+  comments:
+    hypothesis: true
+    utterances:
+      repo: "prog-ml/prog-ml.github.io"

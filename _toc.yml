@@ -7,9 +7,7 @@ parts:
       - file: notebooks/introduction/variational
   - caption: Probability - Univariate Models
     chapters:
-      - file: notebooks/probability/sample-space
-      - file: notebooks/probability/random-variable
-      - file: notebooks/probability/pmf
+      - file: notebooks/probability/Sample_Space_and_Random_Variables
       - file: notebooks/probability/univariate-normal
       - file: notebooks/probability/univariate-normal-expectations
   - caption: Probability - Multivariate Models

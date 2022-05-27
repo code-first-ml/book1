@@ -5,6 +5,7 @@ parts:
     chapters:
       - file: notebooks/introduction/mle_coin
       - file: notebooks/introduction/variational
+      - file: notebooks/introduction/categorical_distribution
   - caption: Probability - Univariate Models
     chapters:
       - file: notebooks/probability/Sample_Space_and_Random_Variables

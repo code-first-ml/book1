@@ -5,9 +5,9 @@
 
 #######################################################################################
 # Book settings
-title                       : Prog-ML  # The title of the book. Will be placed in the left navbar.
+title                       : Code-First-ML  # The title of the book. Will be placed in the left navbar.
 copyright                   : "2022"  # Copyright year to be placed in the footer
-logo                        : prog-ml.jpg
+logo                        : code-first-ml.jpg
 execute:
   execute_notebooks: false
 
@@ -36,7 +36,7 @@ html:
   use_edit_page_button      : true
   use_issues_button         : true  # Whether to add an "open an issue" button
   use_repository_button     : true  # Whether to add a link to your repository button
-  comments:
-    hypothesis: true
-    utterances:
-      repo: "prog-ml/prog-ml.github.io"
+  # comments:
+  #   hypothesis: true
+  #   utterances:
+  #     repo: "prog-ml/prog-ml.github.io"

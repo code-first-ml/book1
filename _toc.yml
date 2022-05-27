@@ -42,29 +42,29 @@ parts:
     chapters:
       - file: notebooks/information_theory/kl-divergence.ipynb
       - file: notebooks/information_theory/jensen-inequality.ipynb
-  - caption: Linear Discriminant Analysis
-  - caption: Logistic Regression
-  - caption: Linear Regression
-  - caption: Generalized linear models
+  # - caption: Linear Discriminant Analysis
+  # - caption: Logistic Regression
+  # - caption: Linear Regression
+  # - caption: Generalized linear models
   - caption: Neural networks for structured data
-  chapters:
+    chapters:
       - file: notebooks/neural_networks/2020-03-08-keras-neural-non-linear.ipynb
       - file: notebooks/neural_networks/2020-02-28-xor-relu-vector.ipynb
       - file: notebooks/neural_networks/2020-03-02-linear-scratch.ipynb
       - file: notebooks/neural_networks/2018-01-13-denoising.ipynb
-  - caption: Neural networks for Images
-  - caption: Neural networks for Sequences
-  - caption: Exemplar-based methods
-  - caption: Kernel methods
-  - caption: Trees, forests, bagging and boosting
-  - caption: Learning with fewer labeled examples
-  - caption: Dimensionality reduction
-  - caption: Clustering
+  # - caption: Neural networks for Images
+  # - caption: Neural networks for Sequences
+  # - caption: Exemplar-based methods
+  # - caption: Kernel methods
+  # - caption: Trees, forests, bagging and boosting
+  # - caption: Learning with fewer labeled examples
+  # - caption: Dimensionality reduction
+  # - caption: Clustering
   - caption: Recommender systems
-  chapters:
+    chapters:
       - file: notebooks/recommender_systems/2017-12-18-recommend-keras.ipynb
       - file: notebooks/recommender_systems/2017-12-29-neural-collaborative-filtering.ipynb
-  - caption: Graph embeddings
+  # - caption: Graph embeddings
   - caption: References
     chapters:
       - file: notebooks/references/references.md

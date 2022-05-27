@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rejection sampling &#8212; Prog-ML</title>
+    <title>Rejection sampling &#8212; Code-First-ML</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -43,41 +43,6 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
-    <script kind="utterances">
-
-    var commentsRunWhenDOMLoaded = cb => {
-    if (document.readyState != 'loading') {
-        cb()
-    } else if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', cb)
-    } else {
-        document.attachEvent('onreadystatechange', function() {
-        if (document.readyState == 'complete') cb()
-        })
-    }
-}
-
-var addUtterances = () => {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "https://utteranc.es/client.js";
-    script.async = "async";
-
-    script.setAttribute("repo", "prog-ml/prog-ml.github.io");
-    script.setAttribute("issue-term", "pathname");
-    script.setAttribute("theme", "github-light");
-    script.setAttribute("label", "💬 comment");
-    script.setAttribute("crossorigin", "anonymous");
-
-    sections = document.querySelectorAll("div.section");
-    if (sections !== null) {
-        section = sections[sections.length-1];
-        section.appendChild(script);
-    }
-}
-commentsRunWhenDOMLoaded(addUtterances);
-</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -115,10 +80,10 @@ const thebe_selector_output = ".output, .cell_output"
         
       
       
-      <img src="../../_static/prog-ml.jpg" class="logo" alt="logo">
+      <img src="../../_static/code-first-ml.jpg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Prog-ML</h1>
+      <h1 class="site-logo" id="site-title">Code-First-ML</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -129,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../intro.html">
-   Prog-ML
+   Code-First-ML
   </a>
  </li>
 </ul>
@@ -152,32 +117,15 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Probability Basics
+  Probability - Univariate Models
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../probability/sample-space.html">
-   Sample Space
+  <a class="reference internal" href="../probability/Sample_Space_and_Random_Variables.html">
+   Sample Space and Random Variables
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../probability/random-variable.html">
-   Random Variables
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../probability/pmf.html">
-   Probability Mass Function (PMF)
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Continuous Probability Distributions
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../probability/univariate-normal.html">
    Properties of RV
@@ -188,6 +136,13 @@ const thebe_selector_output = ".output, .cell_output"
    Derivations for moments of univariate normal distribution
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Probability - Multivariate Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../probability/mvn-introduction.html">
    Multivariate Normal Distribution: Introduction
@@ -201,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Bayesian ML
+  Statistics
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -233,7 +188,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Sampling from Distributions
+  Decision Theory
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -280,7 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Graphical Models
+  Information Theory
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -292,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Mixture Models
+  Linear Algebra
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -304,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Information Theory
+  Optimization
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -316,269 +271,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Variational Models
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../variational_models/2022-02-12-variational-inference.html">
-   Variational Inference
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Bayesian ML with PyMC
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-11-blr-pymc.html">
-   Bayesian linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pymc/2021-03-12-logistic-bayesian.html">
-   Bayesian logistic regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-03-16-GP-PyMC3.html">
-   Gaussian process regression in PyMC
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-03-17-lls-gp-pymc3.html">
-   Local Lengthscale GP with PyMC
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Bayesian ML with Pyro
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pyro/2021-08-20-Bayesian.html">
-   Probabilistic Programming in Pyro
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pyro/2022_02_17_pyro_linreg.html">
-   Linear Regression using Pyro
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pyro/2022-02-20-condition-pyro.html">
-   Pyro Conditioning
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Bayesian ML with PyTorch
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-09-pytorch-learn-normal.html">
-   Maximum Likelihood Estimation (MLE) for parameters of univariate and multivariate normal distribution in PyTorch
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-11-pytorch-learn-normal-map.html">
-   Maximum A-Posteriori (MAP) for parameters of univariate and multivariate normal distribution in PyTorch
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-17-ppca.html">
-   Probabilstic PCA using PyTorch distributions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_pytorch/2022-02-14-logistic-regression.html">
-   Logistic Regression using PyTorch distributions
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Bayesian ML with Tensorflow Probability
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-26-tfp-distributions.html">
-   Testing out some distributions in Tensorflow Probability
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-07-coin-toss.html">
-   Coin Toss (MLE, MAP, Fully Bayesian) in TF Probability
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-01-28-tfp-linear-regression.html">
-   Linear Regression in Tensorflow Probability
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-lr.html">
-   Linear Regression in TF Probability using JointDistributionCoroutineAutoBatched
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_tfp/2022-02-05-simple-dgm.html">
-   Simple Directed Graphical Models in TF Probability
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Bayesian ML with Julia
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../bayesian_ml_with_julia/2021-09-01-Hello-Julia-Language.html">
-   Linear Regression from scratch in Julia
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Gaussian Processes
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2020-03-26-gp.html">
-   Some experiments in Gaussian Processes Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-04-15-LLS-GP.html">
-   Local Lengthscale GP
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-04-15-deep-gp-from-scratch.html">
-   Deep Kernel Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-04-16-ard-gp.html">
-   Automatic relevance determination (ARD)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-04-16-GP-vs-DeepGP.html">
-   GP v/s Deep GP on 2d data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2022-02-23-gp_rff.html">
-   Gaussian Processes with Random Fourier Features
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2020-03-29-param-learning.html">
-   Learning Gaussian Process regression parameters using gradient descent
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2021-09-03-param-learning-sgd.html">
-   Learning Gaussian Process regression parameters using mini-batch stochastic gradient descent
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/2020-06-26-gp-understand.html">
-   Understanding Kernels in Gaussian Processes Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/pyro-deep-gp.html">
-   Deep Kernel Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../gaussian_processes/pyro-binary-classification.html">
-   GP Classification
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Linear Regression
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../linear_regression/2022_02_21_coordinate_descent_failure.html">
-   Coordinate descent failure example
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Generative Adversarial Networks
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gans/2021-05-31-GAN.html">
-   A programming introduction to GANs
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Hidden Markov Models
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../hmms/2013-06-01-hmm_simulate.html">
-   HMM Simulation for Unfair Casino Problem
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../hmms/2013-07-01-hmm_continuous.html">
-   HMM Simulation for Continuous HMM
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tensor Factorization
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../tensor_factorization/2017-04-19-nmf-out-matrix.html">
-   Out of matrix non-negative matrix factorisation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../tensor_factorization/2017-04-20-parafac-out-tensor.html">
-   Out of Tensor factorisation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../tensor_factorization/2017-08-13-mf-autograd-adagrad.html">
-   Adagrad based matrix factorization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../tensor_factorization/2017-04-21-constrained-nmf-cvx.html">
-   Constrained Non-negative matrix factorisation using CVXPY
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Neural Networks
+  Neural networks for structured data
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -605,19 +298,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Expectation Maximization
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../em/2014-06-01-em.html">
-   Programatically understanding Expectation Maximization
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Recommender Systems
+  Recommender systems
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -629,104 +310,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../recommender_systems/2017-12-29-neural-collaborative-filtering.html">
    Neural Networks for Collaborative Filtering
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Active Learning
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../active_learning/2018-06-20-active-committee.html">
-   Active Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../active_learning/2022_01_24_Query_by_Committee.html">
-   Query by Committee
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../active_learning/2020-04-21-active-learning-with-bayesian-linear-regression.html">
-   Active Learning with Bayesian Linear Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../active_learning/2022-03-06-maximal-expected-error-reduction.html">
-   Problem with Expected Model Change
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  JAX
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../jax/introduction-jax.html">
-   Using PRNG key
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ml_softwares/2022-02-09-autograd-pytorch-jax.html">
-   Autograd in JAX and PyTorch
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ml_softwares/2017-08-12-linear-regression-adagrad-vs-gd.html">
-   Programatically understanding Adagrad
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Appendix 1 - Linear Algebra for ML
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-eigen.html">
-   Eigen values
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-determinant.html">
-   Determinant
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2021-03-15-Positive-semi-definite.html">
-   Positive definiteness
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_1_-_linear_algebra_for_ml/2022-02-11-matrix.html">
-   Matrix as transformation and interpreting low rank matrix
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Appendix 2 - Stochastic processes
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-19-stochastic-processes.html">
-   Stochastic processes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-17-Stationary-Time_Series.html">
-   Stationarity of time-series stochastic process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../appendix_2_-_stochastic_processes/2021-03-23-Stationarity-stochastic-processes.html">
-   Stationarity of stochastic processes II
   </a>
  </li>
 </ul>

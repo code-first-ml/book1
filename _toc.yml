@@ -14,6 +14,8 @@ parts:
     chapters:   
       - file: notebooks/probability/mvn-introduction
       - file: notebooks/probability/mvn-marginal
+      - file: notebooks/probability/Dirichlet_distribution.ipynb
+      - file: notebooks/probability/Posterior-MAP_for_the_Categorical.ipynb
   - caption: Statistics
     chapters:
       - file: notebooks/bayesian_ml/2021-03-23-bayesian-ml
